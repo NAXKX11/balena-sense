@@ -1,0 +1,10 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:build
+
+WORKDIR /usr/src/app
+
+RUN pip install influxdb web.py
+
+COPY ./scripts ./scripts
+RUN chmod +x scripts/*.py
+
+CMD /usr/src/app/scripts/get_temperature.py
