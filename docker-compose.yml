@@ -34,3 +34,11 @@ services:
       - "8080:8080"
     depends_on:
       - influxdb
+  upsmonitor:
+    build: ./ups-monitor-settings
+    privileged: true
+    restart: always
+    environment:
+      - UDEV=1
+    devices:
+      - '/dev:/dev'
