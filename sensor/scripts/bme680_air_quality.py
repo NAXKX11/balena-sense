@@ -55,7 +55,7 @@ def get_readings(sensor):
 
     # This sets the balance between humidity and gas reading in the
     # calculation of air_quality_score (25:75, humidity:gas)
-    hum_weighting = 0.25
+    hum_weighting = 0
 
     if sensor.get_sensor_data() and sensor.data.heat_stable:
         gas = sensor.data.gas_resistance
@@ -93,7 +93,10 @@ def get_readings(sensor):
                     'temperature': float(sensor.data.temperature),
                     'pressure': float(sensor.data.pressure),
                     'humidity': float(sensor.data.humidity),
-                    'air_quality_score': float(air_quality_score)
+                    'air_quality_score': float(air_quality_score),
+                    'gas_baseline' : float(gas_baseline),
+                    'gas' : float(gas),
+                    'gas_score': float(gas_score)
                 }
             }
         ]
