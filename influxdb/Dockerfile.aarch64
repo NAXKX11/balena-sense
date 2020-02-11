@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+FROM balenalib/raspberrypi3-alpine
 
 RUN apk add influxdb
 
