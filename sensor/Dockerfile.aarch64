@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3-build
+FROM balenalib/raspberrypi3-python:3-build
 
 ARG BSEC_FILENAME=BSEC_1.4.7.4_Generic_Release.zip
 
@@ -16,7 +16,6 @@ RUN chmod +x make.sh
 RUN ./make.sh
 
 RUN pip install smbus
-RUN pip install w1thermsensor
 
 WORKDIR /usr/src/app
 COPY ./scripts ./scripts
