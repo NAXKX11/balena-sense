@@ -35,7 +35,7 @@ jobs:
         run: |
           echo ::set-output name=docker_platforms::linux/arm/v6,linux/arm/v7,linux/arm64
           echo ::set-output name=docker_username::drakeapps
-          echo ::set-output name=docker_image::registry.gitlab.com/drakeapps/balena-sense/$IMAGE_NAME
+          echo ::set-output name=docker_image::registry.gitlab.com/drakeapps/balena-sense:$IMAGE_NAME
           echo ::set-output name=version::${GITHUB_REF#refs/*/}
           echo ::set-output name=hash::${GITHUB_SHA}
       - name: Set up buildx
@@ -53,5 +53,5 @@ jobs:
           docker buildx build \
             --output type=image,name=${{ steps.prepare.outputs.docker_image }},push=true \
             --platform ${{ steps.prepare.outputs.docker_platforms }} \
-            --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
+            --tag "${{ steps.prepare.outputs.docker_image }}" \
             --file Dockerfile .
