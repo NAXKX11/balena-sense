@@ -53,4 +53,4 @@ jobs:
             --output type=image,name=${{ steps.prepare.outputs.docker_image }},push=true \
             --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
-            --file Dockerfile .
+            --file grafana/Dockerfile .
