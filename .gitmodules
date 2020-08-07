@@ -1,0 +1,3 @@
+[submodule "ups-monitor-settings"]
+	path = ups-monitor-settings
+	url = git@github.com:drakeapps/ups-monitor-settings.git

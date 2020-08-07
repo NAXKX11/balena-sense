@@ -5,6 +5,7 @@
 # The Sense HAT does not have a gas sensor, and so air quality is approximated using temperature and humidity only.
 
 import sys
+import os
 import bme680
 import time
 from sense_hat import SenseHat
@@ -55,10 +56,14 @@ if readfrom == 'unset':
 
 # Create the database client, connected to the influxdb container, and select/create the database
 influx_client = InfluxDBClient('influxdb', 8086, database='balena-sense')
+remote_influx_client = InfluxDBClient('192.168.1.16', 8086, database='sense-%s' % (os.environ.get('BALENA_DEVICE_NAME_AT_INIT')))
+
 influx_client.create_database('balena-sense')
+remote_influx_client.create_database('sense-%s' % (os.environ.get('BALENA_DEVICE_NAME_AT_INIT')))
 
 
 while True:
     measurements = get_readings(sensor)
     influx_client.write_points(measurements)
+    remote_influx_client.write_points(measurements)
     time.sleep(10)
