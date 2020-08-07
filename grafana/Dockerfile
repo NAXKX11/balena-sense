@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%
+FROM balenalib/raspberry-pi
 
 COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
 COPY ./grafana.db /tmp
@@ -12,7 +12,7 @@ RUN install_packages \
       ucf
 
 COPY ./download.sh /usr/src/app/download.sh
-RUN chmod +x /usr/src/app/download.sh && /usr/src/app/download.sh "%%BALENA_MACHINE_NAME%%"
+RUN chmod +x /usr/src/app/download.sh && /usr/src/app/download.sh raspberry-pi
 
 RUN dpkg -i /tmp/grafana.deb && rm /tmp/grafana.deb
 
