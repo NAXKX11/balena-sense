@@ -49,8 +49,9 @@ jobs:
       - name: Run Buildx (master)
         if: success() && contains(steps.prepare.outputs.version, 'master')
         run: |
+          cd grafana && \
           docker buildx build \
             --output type=image,name=${{ steps.prepare.outputs.docker_image }},push=true \
             --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
-            --file grafana/Dockerfile .
+            --file Dockerfile .
