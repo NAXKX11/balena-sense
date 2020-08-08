@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-python
+FROM balenalib/raspberry-pi-python:3-build
 
 WORKDIR /tmp
 RUN git clone https://github.com/RPi-Distro/RTIMULib/ RTIMU

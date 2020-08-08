@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-alpine
+FROM balenalib/raspberry-pi-alpine:3.11
 
 RUN apk add influxdb
 
