@@ -27,7 +27,7 @@ services:
     restart: always
     depends_on:
      - influxdb
-    environment: :
+    environment:
       - REMOTE_INFLUXDB=influx.xrho.com
       - DEVICE_NAME=garage
   watchdog:
