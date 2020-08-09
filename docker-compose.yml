@@ -4,7 +4,7 @@ volumes:
 services:
   influxdb:
     restart: always
-    image: registry.gitlab.com/drakeapps/balena-sense:influxdb
+    image: drakeapps/balena-sense:influxdb
     build: ./influxdb
     ports:
       - "9898:8096"
@@ -12,7 +12,7 @@ services:
       - 'sense-data:/data'
   grafana:
     restart: always
-    image: registry.gitlab.com/drakeapps/balena-sense:grafana
+    image: drakeapps/balena-sense:grafana
     build: ./grafana
     ports:
       - "80:3000"
@@ -22,28 +22,23 @@ services:
       - influxdb
   sensor:
     build: ./sensor
-    image: registry.gitlab.com/drakeapps/balena-sense:sensor
+    image: drakeapps/balena-sense:sensor
     privileged: true
     restart: always
     depends_on:
      - influxdb
+    environment: :
+      - REMOTE_INFLUXDB=influx.xrho.com
+      - DEVICE_NAME=garage
   watchdog:
     build: ./watchdog
-    image: registry.gitlab.com/drakeapps/balena-sense:watchdog
+    image: drakeapps/balena-sense:watchdog
     restart: always
   homebridge:
     build: ./homebridge
-    image: registry.gitlab.com/drakeapps/balena-sense:homebridge
+    image: drakeapps/balena-sense:homebridge
     restart: always
     ports:
       - "8080:8080"
     depends_on:
       - influxdb
-  upsmonitor:
-    build: ./ups-monitor-settings
-    privileged: true
-    restart: always
-    environment:
-      - UDEV=1
-    devices:
-      - '/dev:/dev'

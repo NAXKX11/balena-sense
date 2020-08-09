@@ -56,10 +56,10 @@ if readfrom == 'unset':
 
 # Create the database client, connected to the influxdb container, and select/create the database
 influx_client = InfluxDBClient('influxdb', 8086, database='balena-sense')
-remote_influx_client = InfluxDBClient('192.168.1.16', 8086, database='sense-%s' % (os.environ.get('BALENA_DEVICE_NAME_AT_INIT')))
+remote_influx_client = InfluxDBClient(os.environ.get('REMOTE_INFLUXDB'), 8086, database='sense-%s' % (os.environ.get('DEVICE_NAME')))
 
 influx_client.create_database('balena-sense')
-remote_influx_client.create_database('sense-%s' % (os.environ.get('BALENA_DEVICE_NAME_AT_INIT')))
+remote_influx_client.create_database('sense-%s' % (os.environ.get('DEVICE_NAME')))
 
 
 while True:
