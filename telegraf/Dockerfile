@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%:buster
+FROM balenalib/raspberry-pi:buster
 
 COPY ./*.sh /usr/src/app/
 RUN chmod +x /usr/src/app/*.sh
