@@ -64,6 +64,9 @@ remote_influx_client.create_database('sense-%s' % (os.environ.get('DEVICE_NAME')
 
 while True:
     measurements = get_readings(sensor)
+    print(measurements)
     influx_client.write_points(measurements)
+    print("wrote local influx")
     remote_influx_client.write_points(measurements)
-    time.sleep(10)
+    print("wrote remote influx")
+    time.sleep(5)
