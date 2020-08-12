@@ -10,6 +10,7 @@ import json
 
 from bme680 import BME680
 from w1therm import W1THERM
+from enviroplushat import ENVIROPLUS
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class balenaSense():
@@ -17,13 +18,27 @@ class balenaSense():
     bus = smbus.SMBus(1)
 
     def __init__(self):
-        # First, check to see if there is a BME680 on the I2C bus
+        # First, check for enviro plus hat (since it also has BME on 0x76)
         try:
-            self.bus.write_byte(0x76, 0)
+            self.bus.write_byte(0x23, 0) # test if we can connect to ADS1015
         except IOError:
-            print('BME680 not found on 0x76, trying 0x77')
+            print('Enviro Plus hat not found')
         else:
-            self.readfrom = 'bme680primary'
+            self.readfrom = 'enviroplus'
+            self.sensor = ENVIROPLUS()
+            print('Found Enviro+ Hat')
+
+
+        # Next, check to see if there is a BME680 on the I2C bus
+        if self.readfrom == 'unset':
+            try:
+                self.bus.write_byte(0x76, 0)
+            except IOError:
+                print('BME680 not found on 0x76, trying 0x77')
+            else:
+                print('BME680 found on 0x76')
+                self.sensor = BME680(self.readfrom)
+                self.readfrom = 'bme680primary'
 
         # If we didn't find it on 0x76, look on 0x77
         if self.readfrom == 'unset':
@@ -32,6 +47,8 @@ class balenaSense():
             except IOError:
                 print('BME680 not found on 0x77')
             else:
+                print('BME680 found on 0x77')
+                self.sensor = BME680(self.readfrom)
                 self.readfrom = 'bme680secondary'
 
 
@@ -49,11 +66,6 @@ class balenaSense():
                 import sense_hat_air_quality
                 from hts221 import HTS221
                 self.sense_hat_reading = lambda: sense_hat_air_quality.get_readings(HTS221())
-        else:
-                print('Using BME680 for readings')
-
-                # Import the BME680 methods
-                self.sensor = BME680(self.readfrom)
 
 
         # Next, check if there is a 1-wire temperature sensor (e.g. DS18B20)

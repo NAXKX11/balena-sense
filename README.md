@@ -70,6 +70,7 @@ Here’s the shopping list for this project. Depending if you’d like to crack 
 * Bosch BME680 sensor with breakout board (see below for places to find one) or...
 * **Optional:** Sense HAT (optional replacement for the BME680, but does not include an air quality sensor)
 * **Optional:** 1-wire temperature sensor (temperature only)
+* **Optional:** [Pimoroni Enviro+ Air Quality](https://shop.pimoroni.com/products/enviro?variant=31155658457171) (only supports Temp, Humidity, Pressure, Light (Lux), NH3, Oxidising and Reducing Gases currently)
 * **Optional:** Male-to-female Dupont cables (optional)
 
 You can get hold of the Bosch BME680 sensor on a breakout board from a variety of vendors too, all at varying costs. If you’d like to do everything without a soldering iron, take a look at Pimoroni, who offer a [BME680 breakout board](https://shop.pimoroni.com/products/bme680-breakout) compatible with their [breakout garden HAT](https://shop.pimoroni.com/products/breakout-garden-hat) so that everything plugs together with no soldering required. If you don't want to do any soldering and are happy to sacrifice the air quality reading, you can also use the [Sense HAT](https://shop.pimoroni.com/products/raspberry-pi-sense-hat), with the added bonus that you'll get a smiley face showing on the LED matrix! However, if you're buying hardware specifically for this project, get one of the BME680 options below, don't buy a Sense-HAT just for this! If you only need temperature readings, you can find DS18B20 1-wire sensors readily available on eBay (and much cheaper than the BME680 or Sense-HAT), with minimal soldering required.
@@ -85,12 +86,11 @@ If you’re happy to do a little soldering, that opens up a few more options:
 
 ### Software required
 
-We’ve set up this project which contains all of the software, configuration and code you’ll need to start taking readings straight away. We’re going to deploy this project on [balenaCloud](https://www.balena.io/cloud/) using a free account to push the project and all the software to your Raspberry Pi as well as to provide remote access. Therefore, you’ll need:
+Running this project is as simple as deploying it to a balenaCloud application.
 
-* Tool to flash your SD card, such as [balenaEtcher](https://www.balena.io/etcher/)
-* A [balenaCloud](https://www.balena.io/cloud/) account
-* A clone or download of this project
+One-click deploy to balenaCloud:
 
+[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy)
 
 ### Configuration
 
@@ -147,3 +147,9 @@ If you're feeding to one of the above services and have multiple sensors, you ca
 A full guide covering the initial setup of this project is available on [our blog](https://www.balena.io/blog/p/34fa01e1-7c1d-4fba-bb2a-b57c19d13985/).
 
 We published an additional blog covering the setup of a fleet of balenaSense devices to feed to a central database on [our blog here](https://www.balena.io/blog/p/474400e0-e1f7-4c08-b5b3-e993fd12bda9/).
+
+### Become a balena poweruser
+
+Want to learn more about what makes balena work? Try one of our [masterclasses](https://www.balena.io/docs/learn/more/masterclasses/overview/). Each lesson is a self-contained, deeply detailed walkthrough on core skills you need to be successful with your next edge project.
+
+Check them out at our [docs](https://www.balena.io/docs/learn/more/masterclasses/overview/). Also, reach out to us on the [Forums](https://forums.balena.io/) if you need help.
