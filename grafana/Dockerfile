@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%:buster
+FROM balenalib/raspberry-pi
 
 COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
 COPY ./provisioning /usr/src/app/provisioning
@@ -13,7 +13,8 @@ RUN install_packages \
       jq \
       wget
 
-RUN /usr/src/app/download.sh "%%BALENA_ARCH%%"
+COPY ./download.sh /usr/src/app/download.sh
+RUN chmod +x /usr/src/app/download.sh && /usr/src/app/download.sh raspberry-pi
 
 RUN dpkg -i /tmp/grafana.deb && rm /tmp/grafana.deb
 

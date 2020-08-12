@@ -1,5 +1,47 @@
-![balena-sense](https://raw.githubusercontent.com/balena-io-projects/balena-sense/master/images/logo.png)
+This is a modification of an older version of balena-sense to not run in balenacloud, but on standalone rpi's with docker running
 
+This also includes a container that can be used with homebridge.
+
+Most of this is the same, just with balena specific calls/configs changed.
+
+This also reports the sensor data to a remote influxdb
+
+The packages are hosted on docker hub with the specific services as tags. This is _probably_ wrong, but my quick google didn't turn up anything and this gets the job done for me.
+
+GitHub builds the images and pushes them to the registry.
+
+
+Setting up the raspberry pi:
+
+* I run this gist to set up docker and docker-compose from base rasbian stretch install: https://gist.github.com/drakeapps/abb6b49413748f1d3d43181060f35c74
+* Enable I2C
+  * `sudo raspi-config` > `Interfacing options` > `I2C`
+* Clone this repo
+* Optionally: pull the container instead of building: `docker-compose pull sensor`
+* Start the container `docker-compose up -d sensor`
+
+Homebridge:
+
+This can be used with the homebridge `HTTP-TEMPERATURE` plugin
+
+Pull and start the homebridge container
+
+Add the config:
+
+```
+{
+	"accessory": "HTTP-TEMPERATURE",
+	"name": "Upstairs Bathroom",
+	"getUrl": "http://garage.sensors.xrho.com:8080/getTemperature",
+	"pullInterval": 30000
+},
+```
+
+
+Original balena-sense readme
+
+
+![](https://balena.io/blog/content/images/2019/03/balenasense-logo.png)
 ![](https://balena.io/blog/content/images/2019/03/balenaSense_blog.jpg)
 
 A Raspberry Pi [balenaCloud](https://www.balena.io/cloud/) starter project taking readings from a **either a Bosch BME680 sensor, a Sense-HAT, or a 1-wire temperature sensor (such as a Dallas DS18B20)**, storing using InfluxDB and reporting using Grafana.

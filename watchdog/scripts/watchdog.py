@@ -14,7 +14,7 @@ def urlfetch(url):
 	)
 
 while 1:
-	url = 'https://jamesdrakewilson.com/watchdog.php?key=&method=add&watchdog=home-sense-%s&timer=125' % (os.environ.get('RESIN_DEVICE_NAME_AT_INIT'))
+	url = 'https://jamesdrakewilson.com/watchdog.php?key=%s&method=add&watchdog=home-sense-%s&timer=125' % (os.environ.get('WATCHDOG_KEY'), os.environ.get('DEVICE_NAME'))
 	req = urlfetch(url)
 	data = urllib.request.urlopen(req).read()
 

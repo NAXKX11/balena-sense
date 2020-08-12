@@ -1,4 +1,4 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3-build
+FROM balenalib/raspberry-pi-python:3-build
 
 ARG BSEC_FILENAME=BSEC_1.4.7.4_Generic_Release.zip
 
