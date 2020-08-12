@@ -1,19 +1,18 @@
 FROM balenalib/raspberry-pi
 
-COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
-COPY ./grafana.db /tmp
-
-COPY ./start.sh /usr/src/app/start.sh
-
 RUN install_packages \
       fontconfig-config \
       fonts-dejavu-core \
       libfontconfig1 \
-      ucf
+      ucf \
+      jq \
+      wget
 
-COPY ./download.sh /usr/src/app/download.sh
-RUN chmod +x /usr/src/app/download.sh && /usr/src/app/download.sh raspberry-pi
+COPY ./provisioning /usr/share/grafana/conf/provisioning
+COPY ./*.sh /usr/src/app/
+RUN chmod +x /usr/src/app/*.sh
+RUN /usr/src/app/download.sh "raspberry-pi"
 
 RUN dpkg -i /tmp/grafana.deb && rm /tmp/grafana.deb
 
-CMD ["/bin/sh","/usr/src/app/start.sh"]
+CMD ["/bin/sh","/usr/src/app/entry.sh"]
