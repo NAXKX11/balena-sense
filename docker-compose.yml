@@ -55,6 +55,7 @@ services:
       - SYS_ADMIN
     environment: 
       - INFLUXDB_EXTERNAL_URL=influx.xrho.com
+      - INFLUXDB_EXTERNAL_DB=garage
     depends_on: 
       - influxdb
       - sensor
