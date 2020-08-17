@@ -30,15 +30,12 @@ class balenaSense():
 
 
         # Next, check to see if there is a BME680 on the I2C bus
-        if self.readfrom == 'unset':
-            try:
-                self.bus.write_byte(0x76, 0)
-            except IOError:
-                print('BME680 not found on 0x76, trying 0x77')
-            else:
-                print('BME680 found on 0x76')
-                self.sensor = BME680(self.readfrom)
-                self.readfrom = 'bme680primary'
+        try:
+            self.bus.write_byte(0x76, 0)
+        except IOError:
+            print('BME680 not found on 0x76, trying 0x77')
+        else:
+            self.readfrom = 'bme680primary'
 
         # If we didn't find it on 0x76, look on 0x77
         if self.readfrom == 'unset':
@@ -47,8 +44,6 @@ class balenaSense():
             except IOError:
                 print('BME680 not found on 0x77')
             else:
-                print('BME680 found on 0x77')
-                self.sensor = BME680(self.readfrom)
                 self.readfrom = 'bme680secondary'
 
 
