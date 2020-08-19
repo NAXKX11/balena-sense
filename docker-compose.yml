@@ -50,12 +50,15 @@ services:
       - influxdb
   telegraf:
     build: ./telegraf
+    image: drakeapps/balena-sense:telegraf
     restart: always
     cap_add:
       - SYS_ADMIN
     environment: 
-      - INFLUXDB_EXTERNAL_URL=influx.xrho.com
+      - INFLUXDB_EXTERNAL_URL=http://influx.xrho.com:8086
       - INFLUXDB_EXTERNAL_DB=garage
+      - INFLUXDB_EXTERNAL_USERNAME=
+      - INFLUXDB_EXTERNAL_PASSWORD=
     depends_on: 
       - influxdb
       - sensor
